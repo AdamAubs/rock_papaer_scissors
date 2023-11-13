@@ -25,58 +25,102 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-  let rounds = 5;
+  let rounds = 0;
   let playerScore = 0;
   let computerScore = 0;
 
-  for (i = 0; i < rounds; i++) {
-    let playerSelection = prompt("Rock, paper, or scissors?").toLowerCase();
+  let btn = document.querySelectorAll("button");
+  let playerElement = document.querySelector(".playerScore");
+  let computerElement = document.querySelector(".computerScore");
+  let results = document.querySelector(".results");
+  let img = document.querySelectorAll("img");
+  let round = document.querySelector(".round");
 
-    while (
-      (playerSelection !== "rock") ^
-      (playerSelection !== "paper") ^
-      (playerSelection !== "scissors")
-    ) {
-      console.log("Invalid Entry");
-      playerSelection = prompt("Rock, paper, or scissors?").toLowerCase();
-    }
+  playerElement.textContent = playerScore;
+  computerElement.textContent = computerScore;
+  round.textContent = rounds;
 
+  img.forEach((img) => {
+    img.addEventListener("click", handleClick);
+  });
+
+  function handleClick(event) {
+    results.textContent = " ";
     let computerSelection = getComputerChoice();
 
-    console.log(`computer choice: ${computerSelection}`);
-    console.log(`your choice: ${playerSelection}`);
+    const playerSelection = event.target.alt;
+
+    console.log(playerSelection);
+    console.log(computerSelection);
 
     if (playRound(playerSelection, computerSelection) === "playerWins") {
+      rounds++;
       playerScore++;
-      console.log("you win! computer loses.");
-    } else if (
-      playRound(playerSelection, computerSelection) === "computerWins"
-    ) {
-      computerScore++;
-      console.log("you lose! computer wins.");
-    } else {
-      console.log("TIE!");
+      document.body.style.backgroundColor = "#b3ffb3";
+      playerElement.style.backgroundColor = "white";
+
+      setTimeout(function () {
+        document.body.style.backgroundColor = "";
+        playerElement.style.backgroundColor = "";
+      }, 400);
     }
-    console.log("---------------------------------");
+    if (playRound(playerSelection, computerSelection) === "computerWins") {
+      rounds++;
+      computerScore++;
+      document.body.style.backgroundColor = "#ffcccc";
+      computerElement.style.backgroundColor = "white";
+
+      setTimeout(function () {
+        document.body.style.backgroundColor = "";
+        computerElement.style.backgroundColor = "";
+      }, 200);
+    }
+    if (playRound(playerSelection, computerSelection) === "tie") {
+      console.log("Tie");
+    }
+
+    playerElement.textContent = playerScore;
+    computerElement.textContent = computerScore;
+    round.textContent = rounds;
+    console.log(`players score is ${playerScore}`);
+    console.log(`computers score is ${computerScore}`);
+    console.log(`ROUND: ${rounds}`);
+
+    if (rounds >= 5) {
+      result(playerScore, computerScore);
+      playerScore = 0;
+      computerScore = 0;
+      rounds = 0;
+    }
   }
-  console.log("-----------------------------------");
-  result(playerScore, computerScore);
 }
 
 function result(playerScore, computerScore) {
+  let result = document.querySelector(".results");
+
   if (playerScore > computerScore) {
+    result.textContent = "You won the game!";
+    // result.textContent = `your score: ${playerScore}`;
+    // result.textContent = `your score: ${playerScore}`;
     console.log("You won the game!");
     console.log(`your score: ${playerScore}`);
     console.log(`computers score: ${computerScore}`);
+    document.body.style.backgroundColor = "#b3ffb3";
   } else if (playerScore < computerScore) {
+    result.textContent = "You lost the game! Computer wins";
+    // result.textContent = `your score: ${playerScore};`;
+    // result.textContent = `computers score: ${computerScore}`;
     console.log("You lost the game! Computer wins");
     console.log(`your score: ${playerScore}`);
     console.log(`computers score: ${computerScore}`);
+    document.body.style.backgroundColor = "#ffcccc";
   } else {
+    result.textContent = "Its a draw! Play again!";
+    // result.textContent = `your score: ${playerScore}`;
+    // result.textContent = `computers score: ${computerScore}`;
     console.log("Its a draw! Play again!");
     console.log(`your score: ${playerScore}`);
     console.log(`computers score: ${computerScore}`);
   }
 }
-
 game();

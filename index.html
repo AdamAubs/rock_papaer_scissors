@@ -4,8 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="container">
+      <div class="choices">
+        <button class="rock">
+          <img src="./images/rock.png" alt="rock" />
+        </button>
+        <button class="paper">
+          <img src="./images/toilet-paper.png" alt="paper" />
+        </button>
+        <button class="scissors">
+          <img src="./images/cut.png" alt="scissors" />
+        </button>
+      </div>
+
+      <div class="score">
+        <p class="scoreDisplay">
+          Player Score: <span class="playerScore"></span>
+        </p>
+        <p class="scoreDisplay">
+          Computer Score: <span class="computerScore"></span>
+        </p>
+      </div>
+
+      <div class="rounds">
+        <p class="displayRounds">Round: <span class="round"></span></p>
+      </div>
+      <div class="result">
+        <p><span class="results"></span></p>
+      </div>
+    </div>
     <script src="rock_paper_scissors.js"></script>
   </body>
 </html>
